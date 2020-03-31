@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    const obj1 = {
+        age: 20,
+        name: 'xxx',
+        addr: {
+            cidy: 'sh',
+            a: {
+                x: {
+                    y: {
+                        z: 100
+                    }
+                }
+            }
+        },
+        arr: ['a', 'b', 'c']
+    }
+
+    const obj2 = deepClone(obj1)
+    console.log(obj2)
+
+    function deepClone(obj = {}) {
+        if(typeof obj !== 'object' || obj == null) {
+            return obj
+        }
+
+        let result
+        if(obj instanceof Array) {
+            result = []
+        } else {
+            result = {}
+        }
+
+        for(let key in obj) {
+            console.log(key)
+            if(obj.hasOwnProperty(key)) {
+                result[key] = deepClone(obj[key])
+            }
+        }
+
+        return result
+    }
+
+</script>
