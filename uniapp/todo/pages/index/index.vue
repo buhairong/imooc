@@ -3,14 +3,17 @@
 		<view class="todo-header" v-if="list.length">
 			<!-- 状态栏左侧 -->
 			<view class="todo-header__left">
-				<text class="active-text">全部</text>
-				<text>10条</text>
+				<text class="active-text">{{text}}</text>
+				<text>{{listDate.length}}条</text>
 			</view>
 			<!-- 状态栏右侧 -->
 			<view class="todo-header__right">
-				<view class="todo-header__right-item active-tab">全部</view>
-				<view class="todo-header__right-item">待办</view>
-				<view class="todo-header__right-item">已完成</view>
+				<view 
+				class="todo-header__right-item" 
+				:class="{'active-tab': activeIndex === 0}"
+				@click="tab(0)">全部</view>
+				<view class="todo-header__right-item" :class="{'active-tab': activeIndex === 1}" @click="tab(1)">待办</view>
+				<view class="todo-header__right-item" :class="{'active-tab': activeIndex === 2}" @click="tab(2)">已完成</view>
 			</view>
 		</view>
 		<view v-if="!list.length" class="default">
@@ -24,7 +27,7 @@
 		</view>
 		<view class="todo-content" v-else>
 			<view class="todo-list" 
-			v-for="item in list" 
+			v-for="item in listDate" 
 			:key="item.id"
 			:class="{'todo--finish': item.isDone}" 
 			@click="finish(item.id)">
@@ -60,11 +63,34 @@
 			return {
 				list: [],
 				active: false,
-				value: ''
+				value: '',
+				activeIndex: 0,
+				text: '全部'
 			}
 		},
 		onLoad() {
 
+		},
+		computed: {
+			listDate() {
+				let list = JSON.parse(JSON.stringify(this.list))
+				if(this.activeIndex === 0) {
+					this.text = '全部'
+					return list
+				}
+				
+				if(this.activeIndex === 1) {
+					this.text = '待办'
+					return list.filter(item => !item.isDone)
+				}
+				
+				if(this.activeIndex === 2) {
+					this.text = '已完成'
+					return list.filter(item => item.isDone)
+				}
+				
+				return list
+			}
 		},
 		methods: {
 			// 打开输入框
@@ -95,6 +121,9 @@
 					}
 					return item
 				})
+			},
+			tab(index) {
+				this.activeIndex = index
 			}
 		}
 	}
@@ -104,6 +133,12 @@
 	@import "../../common/icon.css";
 	
 	.todo-header {
+		position: fixed;
+		top: 44px;
+		left: 0;
+		z-index: 10;
+		width: 100%;
+		box-sizing: border-box;
 		display: flex;
 		align-items: center;
 		padding: 0 15px;
@@ -133,6 +168,8 @@
 	}
 	.todo-content {
 		position: relative;
+		padding-top: 50px;
+		padding-bottom: 100px;
 	}
 	.todo-list {
 		position: relative;
