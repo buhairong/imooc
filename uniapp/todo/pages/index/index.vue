@@ -40,11 +40,11 @@
 			</view>
 		</view>
 		<!-- 创建按钮 -->
-		<view class="create-todo" @click="create">
+		<view class="create-todo" @click="create" :class="{'create-todo-active': textShow}">
 			<text class="iconfont icon-add"></text>
 		</view>
 		<!-- 输入框 -->
-		<view class="create-content" v-show="active">
+		<view class="create-content" v-show="active" :class="{'create-show': textShow}">
 			<view class="create-content-box">
 				<view class="create-input">
 					<input type="text" placeholder="请输入待办事项" v-model="value">
@@ -65,7 +65,8 @@
 				active: false,
 				value: '',
 				activeIndex: 0,
-				text: '全部'
+				text: '全部',
+				textShow: false
 			}
 		},
 		onLoad() {
@@ -96,6 +97,7 @@
 			// 打开输入框
 			create() {
 				this.active = true
+				this.textShow = !this.textShow
 			},
 			add() {
 				const val = this.value.trim()
@@ -106,6 +108,7 @@
 					})
 					return
 				}
+				this.textShow = false
 				this.list.unshift({
 					id: new Date().getTime(),
 					content: val,
@@ -262,6 +265,13 @@
 		bottom: 95px;
 		left: 20px;
 		right: 20px;
+		transition: all .3s;
+		opacity: 0;
+		transform: scale(0) translateY(200%);
+	}
+	.create-show {
+		opacity: 1;
+		transform: scale(1) translateY(0);
 	}
 	.create-content-box {
 		display: flex;
@@ -328,5 +338,11 @@
 		text-align: center;
 		font-size: 14px;
 		color: #ccc;
+	}
+	.create-todo {
+		transition: transform .3s;
+	}
+	.create-todo-active {
+		transform: rotate(135deg);
 	}
 </style>
