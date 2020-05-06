@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #layout {
+            overflow: hidden;
+        }
+        #layout>div {
+            min-height: 100px;
+            padding-bottom: 10000px;
+            margin-bottom: -10000px;
+        }
+        #center {
+            float: left;
+            background: deeppink;
+            width: 100%;
+        }
+        #left {
+            float: left;
+            background: blue;
+            width: 300px;
+            margin-left: -100%;
+        }
+        #right {
+            float: left;
+            background: yellow;
+            width: 300px;
+            margin-left: -300px;
+        }
+        #inner {
+            width: 100%;
+            padding: 0 300px;
+            box-sizing: border-box;
+        }
+
+
+    </style>
+</head>
+<body>
+<section id="layout">
+    <div id="center">
+        <div id="inner">
+            <p>centerasdffffffasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffddddddddddddddddddddddddddddddd</p>
+
+        </div>
+    </div>
+    <div id="left">left</div>
+    <div id="right">right</div>
+</section>
+</body>
+</html>

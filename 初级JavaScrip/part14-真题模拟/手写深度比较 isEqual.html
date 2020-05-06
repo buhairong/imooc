@@ -25,7 +25,12 @@
         }
     }
 
+    const obj3 = {}
+    const obj4 = []
+
     console.log(isEqual(obj1, obj2))
+    console.log(isEqual({}, obj3))
+    console.log(isEqual([], obj4))
 
     function isEqual(obj1, obj2) {
         if(!isObject(obj1) || !isObject(obj2)) {

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #layout #wrap {
+            display: grid;
+            width: 100%;
+            grid-template-rows: 100px;
+            grid-template-columns: 300px auto 300px;
+        }
+        #layout #wrap div{
+
+        }
+        #left {
+            background: red;
+        }
+        #right {
+            background: blue;
+        }
+        #center {
+            flex: 1;
+            background: green;
+        }
+    </style>
+</head>
+<body>
+<section id="layout">
+    <article id="wrap">
+        <div id="left">left</div>
+        <div id="center">
+            <p>center</p>
+            <p>center</p>
+            <p>center</p>
+            <p>center</p>
+            <p>center</p>
+            <p>center</p>
+            <p>center</p>
+            <p>center</p>
+        </div>
+        <div id="right">right</div>
+    </article>
+</section>
+</body>
+</html>

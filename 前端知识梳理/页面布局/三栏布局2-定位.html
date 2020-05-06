@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #layout #wrap div{
+            min-height: 100px;
+            position: absolute;
+        }
+        #left {
+            left: 0;
+            width: 300px;
+            background: red;
+        }
+        #right {
+            right: 0;
+            width: 300px;
+            background: blue;
+        }
+        #center {
+            left: 300px;
+            right: 300px;
+            background: green;
+        }
+    </style>
+</head>
+<body>
+<section id="layout">
+    <article id="wrap">
+        <div id="left">left</div>
+        <div id="center">
+            <p>center</p>
+            <p>center</p>
+        </div>
+        <div id="right">right</div>
+    </article>
+</section>
+</body>
+</html>
