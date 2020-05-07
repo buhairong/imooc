@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        #ev {
+            width: 300px;
+            height: 100px;
+            background: red;
+            color: #fff;
+            text-align: center;
+            line-height: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="ev">
+    目标元素
+</div>
+
+</body>
+</html>
+<script>
+    let ev = document.getElementById('ev')
+    //let eve = new Event('test')
+    let eve = new CustomEvent('test', {detail:{name: 'zhangsan'}})
+    ev.addEventListener('test', function(e) {
+        //console.log('test')
+        console.log('test', e)
+        console.log('test', e.detail.name)
+    })
+    ev.dispatchEvent(eve)
+</script>

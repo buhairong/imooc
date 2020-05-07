@@ -3,13 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        * {
+            padding:0;
+            margin: 0;
+        }
+        #box {
+            width: 300px;
+            border: 1px solid #000;
+            margin: 100px auto;
+            word-break : break-all;
+        }
+        img {
+            float: left;
+            width: 150px;
+        }
+    </style>
 </head>
 <body>
-
+<div id="box">
+    <img src="1.png" alt="">
+    asfdasfdasafdasdfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffdsfaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+</div>
 </body>
 </html>
 <script>
     const arr = [1, 2, [3, 4], 5]
     const res = Array.prototype.concat([], arr)
     console.log(res)
+    console.log(document.documentElement)
+
+    function M() {
+
+    }
+
+    let m = new M()
+    
+    console.log(m instanceof M)
+    console.log(m instanceof Function)
+    console.log(m instanceof Object)
 </script>
