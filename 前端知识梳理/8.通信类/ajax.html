@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function ajax(url,data={},type="get", success, fail) {
+        const xhr = XMLHttpRequest ? new XMLHttpRequest() : new window.ActiveXObject("Microsoft.XMLHTTP")
+        type = type.toUpperCase()
+        let dataArr = []
+        for(let key in data) {
+            dataArr.push(key + "=" + data[key])
+        }
+
+        if(type === "GET") {
+            if(dataArr.length) {
+                url = url + "?" + dataArr.join("&")
+            }
+            xhr.open(type, url, true)
+            xhr.send()
+        }
+
+        if(type === "POST") {
+            xhr.open(type, url, true)
+            xhr.send(dataArr.join("&"))
+        }
+
+        xhr.onload = function() {
+            if(xhr.status === 200 || xhr.status === 304) {  // 304 读取缓存
+                if(success && typeof success === "function") {
+                    success(xhr.responseText)
+                }
+            }else {
+                if(fail && typeof fail === "function") {
+                    fail(xhr)
+                }
+            }
+        }
+    }
+</script>

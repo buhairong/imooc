@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+这是A页面
+<iframe src="./postMessageB.html" id="B"></iframe>
+</body>
+</html>
+<script>
+    let B = document.getElementById("B")
+    B.onload = function() {
+        B.contentWindow.postMessage('data', 'http://localhost:63342/imooc/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86%E6%A2%B3%E7%90%86/8.%E9%80%9A%E4%BF%A1%E7%B1%BB/postMessageB.html')
+    }
+
+</script>

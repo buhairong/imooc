@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+这是B页面
+</body>
+</html>
+<script>
+    window.addEventListener('message', function(event) {
+        console.log(event.origin)
+        console.log(event.source)
+        console.log(event.data)
+    })
+</script>
