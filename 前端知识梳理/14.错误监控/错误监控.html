@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        // 资源加载错误不会冒泡，所以无法用 window.onerror 获取，但是可以用捕获
+        window.addEventListener('error', function(e) {
+            console.log('捕获', e)
+        }, true)
+    </script>
+</head>
+<body>
+
+</body>
+</html>
+<!--<script src="//baidu1.com/test1.js"></script>-->
+<script>
+    (new Image()).src = "http://localhost:8989/sendMsg?errormsg=1234"
+</script>
