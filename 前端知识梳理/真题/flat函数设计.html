@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    // 方法一  递归
+    function flat(array) {
+        let result = []
+        let each = function(arr) {
+            arr.forEach(item => {
+                if(item instanceof Array) {
+                    each(item)
+                }else{
+                    result.push(item)
+                }
+            })
+        }
+
+        each(array)
+        return result.join(',')
+    }
+
+
+    const arr = ['a',['b','c',['d','e',[5,6]]], 'f','g',[1,2],3]
+    console.log(flat(arr))
+
+    // 方法二 toString  隐式类型转换
+    console.log(arr + '')
+</script>

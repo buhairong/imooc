@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function Foo() {
+        getName = function() {
+            console.log(1)
+        }
+        return this
+    }
+
+    Foo.getName = function() {
+        console.log(2)
+    }
+
+    Foo.prototype.getName = function() {
+        console.log(3)
+    }
+
+    var getName = function() {
+        console.log(4)
+    }
+
+    function getName() {
+        console.log(5)
+    }
+
+    Foo.getName()                  // 2
+    getName()                      // 4
+    Foo().getName()               // 1
+    getName()                     // 1
+    new Foo.getName()            // 2  运算符优先级: 圆括号 > . > new
+    new Foo().getName()         // 3
+    new new Foo().getName()    // 3
+/*
+    运算符优先级
+*   https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+* */
+
+    /*
+        var getName
+
+        function getName() {
+            console.log(5)
+        }
+
+
+        function Foo() {
+            getName = function() {
+                console.log(1)
+            }
+            return this
+        }
+
+        Foo.getName = function() {
+            console.log(2)
+        }
+
+        Foo.prototype.getName = function() {
+            console.log(3)
+        }
+
+        getName = function() {
+            console.log(4)
+        }
+
+
+    */
+</script>
+<!--
+    考察知识点：
+    1. 函数和类
+    2. 原型链
+    3. 运算符优先级
+    4. 作用域
+    5. 变量提升
+-->
