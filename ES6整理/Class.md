@@ -35,3 +35,4 @@ class Animal {
         console.log('i am eat food')
     }
 }
+
