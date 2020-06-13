@@ -94,3 +94,26 @@ Class Component {
     }
 }
 
+-----------------------------------------------------------------------
+# 撤销代理
+
+let o = {
+    name: 'xiaoming',
+    price: 190
+}
+
+let d = Proxy.revocable(o, {
+    get(target, key) {
+        if(key === 'price') {
+            return target[key] + 20
+        }else {
+            return target[key]
+        }
+    }
+})
+
+console.log(d.proxy.price)  // 210
+
+d.revoke()  // 撤销代理
+
+console.log(d.proxy.price)  // 报错
