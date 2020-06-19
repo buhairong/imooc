@@ -50,4 +50,39 @@
     console.log(arr1[4])
 
     console.log(new Date(1566920137917))
+
+
+    function * gen(){
+        let val
+        val = (yield [1, 2, 3])+7
+        console.log(val)  // 20
+    }
+
+    const l = gen()
+    console.log(l.next())  // {value: Array(3), done: false}
+    console.log(l.next(20)) // {value: undefined, done: true}    yield表达式对val赋值时，通过next传值影响yield的返回值
+
+   let p =new Promise((res, rej) => {
+        console.log(1)
+        return 1
+       console.log(1111)
+        res(11)
+    }).then(res => {
+        console.log(2)
+        console.log(res)
+    }).then(res => {
+        console.log(2)
+        console.log(res)
+    }).catch(err => {
+        console.log(err)
+    })
+
+    console.log('p', p)
+    console.log((typeof [1,2,3]).toString())
+
+    async function firstAsync() {
+        return 27  // Promise.resolve(27)
+    }
+
+    console.log(firstAsync())
 </script>

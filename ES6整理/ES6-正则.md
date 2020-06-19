@@ -29,3 +29,34 @@ console.log(/𠮷{2}/u.test('𠮷𠮷'))  // true
 
 console.log(/[a-z]/i.test('\u212A'))   // false
 console.log(/[a-z]/iu.test('\u212A'))  // true
+
+
+------------------------------------------------------------------------------------------------------------------
+# ES9 新增
+
+// . 匹配任意字符，但是不能匹配 utf-16编码，换行符 \n、回车符 \r
+// 加上s修饰符可以匹配到 utf-16编码，换行符 \n、回车符 \r
+console.log(/foo.bar/us.test('foo\nbar'))  // true
+
+const re = /foo.bar/s  
+console.log(re.dotAll) // true  正则是否开启 dotAll
+console.log(re.flags) // s  正则开启的修饰符
+
+
+# 分组匹配
+const t = '2019-06-07'.match(/(\d{4})-(\d{2})-(\d{2})/)
+console.log(t[1])  // 2019
+console.log(t[2])  // 06
+console.log(t[3]) // 07
+
+
+# 命名分组匹配
+const t = '2019-06-07'.match(/(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/)
+console.log(t.groups.year)   // 2019
+console.log(t.groups.month)  // 06
+console.log(t.groups.day)   // 07
+
+
+
+
+

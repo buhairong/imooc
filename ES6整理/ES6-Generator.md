@@ -47,3 +47,37 @@ function * gen(){
 const l = gen()
 console.log(l.next(10))  // {value: Array(3), done: false}
 console.log(l.next(20)) // {value: undefined, done: true}    yield表达式对val赋值时，通过next传值影响yield的返回值
+
+---------------------------------------------------------------------------------------------
+
+function * gen(){
+    let val
+    val = yield  [1, 2, 3]
+    console.log(val)   // 流程被终止，不会执行
+}
+
+const l = gen()
+console.log(l.next(10))  
+console.log(l.return(100))   //  {value: 100, done: true}   终止流程
+console.log(l.next(20)) 
+
+
+
+---------------------------------------------------------------------------------------------------
+
+function * gen() {
+    while(true){
+        try{
+            yield 1
+        }catch(e){
+            console.log(e)
+        }
+    }
+}
+
+const g = gen()
+console.log(g.next())      // {value: 1, done: false}
+g.throw(new Error('sss'))  // 抛出异常
+console.log(g.next())     // {value: 1, done: false}   抛出异常后，不会影响程序后续执行
+
+
