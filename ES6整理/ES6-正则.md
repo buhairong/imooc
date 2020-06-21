@@ -57,6 +57,15 @@ console.log(t.groups.month)  // 06
 console.log(t.groups.day)   // 07
 
 
+# 先行断言  先匹配到hello,再匹配hello后是否满足条件（是否是 world）
+let test = 'hello world'
+console.log(test.match(/hello(?=\sworld)/))
+
+# 后行断言  先匹配到world,再匹配world前是否满足条件（是否是hello ）
+console.log(test.match(/(?<hello\s)world/))
+console.log(test.match(/(?<!helle\s)world/)) // 匹配world前不等于helle
+
+
 
 
 
