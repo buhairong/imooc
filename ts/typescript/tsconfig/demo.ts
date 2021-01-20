@@ -1,0 +1,1 @@
+const teacher = 'lee'

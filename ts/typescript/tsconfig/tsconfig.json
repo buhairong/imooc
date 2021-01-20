@@ -1,21 +1,24 @@
-{ 
+{
+  "include": ["./demo.ts"], /* 指定tsc要编译的ts文件 */
+  // "exclude": ["./demo.ts"], /* 指定tsc不进行编译的ts文件 */
+  // "files": ["./demo.ts"], /* 指定tsc要编译的ts文件 */
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Basic Options */
-    // "incremental": true,                   /* Enable incremental compilation */
+    // "incremental": true,                   /* Enable incremental compilation 增量编译，之前已经编译过的内容不会再进行编译，只会对新增内容进行编译*/
     "target": "es5",                          /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', 'ES2018', 'ES2019', 'ES2020', or 'ESNEXT'. */
     "module": "commonjs",                     /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */
     // "lib": [],                             /* Specify library files to be included in the compilation. */
-    // "allowJs": true,                       /* Allow javascript files to be compiled. */
-    // "checkJs": true,                       /* Report errors in .js files. */
+    // "allowJs": true,                       /* Allow javascript files to be compiled. 对JS文件进行编译，例如将ES6转成ES5*/
+    // "checkJs": true,                       /* Report errors in .js files. 对JS文件进行语法检测*/
     // "jsx": "preserve",                     /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */
     // "declaration": true,                   /* Generates corresponding '.d.ts' file. */
     // "declarationMap": true,                /* Generates a sourcemap for each corresponding '.d.ts' file. */
-    // "sourceMap": true,                     /* Generates corresponding '.map' file. */
+    // "sourceMap": true,                     /* Generates corresponding '.map' file. 打包时生成sourcemap文件*/
     // "outFile": "./",                       /* Concatenate and emit output to single file. */
-    "outDir": "./build",                        /* Redirect output structure to the directory. */
-    // "rootDir": "./",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
+    "outDir": "./build",                        /* Redirect output structure to the directory.  tsc生成文件的目录*/
+    // "rootDir": "./",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. 指定outDir的目录在哪个目录下*/
     // "composite": true,                     /* Enable project compilation */
     // "tsBuildInfoFile": "./",               /* Specify file to store incremental compilation information */
     // "removeComments": true,                /* Do not emit comments to output. 删除注释*/
@@ -26,8 +29,8 @@
 
     /* Strict Type-Checking Options */
     "strict": true,                           /* Enable all strict type-checking options. */
-    // "noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
-    // "strictNullChecks": true,              /* Enable strict null checks. */
+    // "noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. 是否显示地去指定any类型*/
+    // "strictNullChecks": true,              /* Enable strict null checks. 是否进行null校验*/
     // "strictFunctionTypes": true,           /* Enable strict checking of function types. */
     // "strictBindCallApply": true,           /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
     // "strictPropertyInitialization": true,  /* Enable strict checking of property initialization in classes. */
@@ -36,14 +39,14 @@
 
     /* Additional Checks */
     // "noUnusedLocals": true,                /* Report errors on unused locals. */
-    // "noUnusedParameters": true,            /* Report errors on unused parameters. */
+    // "noUnusedParameters": true,            /* Report errors on unused parameters. 对函数未使用参数进行提示*/
     // "noImplicitReturns": true,             /* Report error when not all code paths in function return a value. */
     // "noFallthroughCasesInSwitch": true,    /* Report errors for fallthrough cases in switch statement. */
     // "noUncheckedIndexedAccess": true,      /* Include 'undefined' in index signature results */
 
     /* Module Resolution Options */
     // "moduleResolution": "node",            /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
-    // "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. */
+    // "baseUrl": "./",                       /* Base directory to resolve non-absolute module names. 指定根路径*/
     // "paths": {},                           /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     // "rootDirs": [],                        /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": [],                       /* List of folders to include type definitions from. */
