@@ -20,7 +20,7 @@ router.post('/getData', function (req, res) {
         res.send('getData Success!');
     }
     else {
-        res.send(req.teacherName + " password Error!");
+        res.send('password Error!');
     }
 });
 exports.default = router;
