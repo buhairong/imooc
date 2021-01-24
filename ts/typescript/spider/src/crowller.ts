@@ -3,13 +3,12 @@
 import superagent from 'superagent'
 import fs from 'fs'
 import path from 'path'
-import DellAnalyzer from './dellAnalyzer'
 
 export interface Analyzer {
   analyzer: (html: string, filePath: string) => string
 }
 
-class Crowller {
+export default class Crowller {
   private filePath = path.resolve(__dirname, '../data/course.json')
 
   constructor(private url: string, private analyzer: Analyzer) {
@@ -28,11 +27,3 @@ class Crowller {
     return result.text
   }
 }
-
-const secret = 'x3b174jsx'
-const url = `http://www.dell-lee.com/typescript/demo.html?secret=${secret}`
-
-
-const analyzer = DellAnalyzer.getInstance()
-new Crowller(url, analyzer)
-console.log("113");
