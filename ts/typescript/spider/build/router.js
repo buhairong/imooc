@@ -4,10 +4,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express_1 = require("express");
-var crowller_1 = __importDefault(require("./crowller"));
-var dellAnalyzer_1 = __importDefault(require("./dellAnalyzer"));
+var crowller_1 = __importDefault(require("./utils/crowller"));
+var dellAnalyzer_1 = __importDefault(require("./utils/dellAnalyzer"));
 var fs_1 = __importDefault(require("fs"));
 var path_1 = __importDefault(require("path"));
+var checkLogin = function (req, res, next) {
+    var isLogin = req.session ? req.session.login : false;
+    if (isLogin) {
+        next();
+    }
+    else {
+        res.send('请先登录');
+    }
+};
 var router = express_1.Router();
 router.get('/', function (req, res) {
     var isLogin = req.session ? req.session.login : false;
@@ -40,33 +49,21 @@ router.get('/logout', function (req, res) {
     }
     res.redirect('/');
 });
-router.get('/getData', function (req, res) {
-    var isLogin = req.session ? req.session.login : false;
-    if (isLogin) {
-        var secret = 'secretKey';
-        var url = "http://www.dell-lee.com/typescript/demo.html?secret=" + secret;
-        var analyzer = dellAnalyzer_1.default.getInstance();
-        new crowller_1.default(url, analyzer);
-        res.send('getData Success!');
-    }
-    else {
-        res.send('请先登录');
-    }
+router.get('/getData', checkLogin, function (req, res) {
+    var secret = 'secretKey';
+    var url = "http://www.dell-lee.com/typescript/demo.html?secret=" + secret;
+    var analyzer = dellAnalyzer_1.default.getInstance();
+    new crowller_1.default(url, analyzer);
+    res.send('getData Success!');
 });
-router.get('/showData', function (req, res) {
-    var isLogin = req.session ? req.session.login : false;
-    if (isLogin) {
-        try {
-            var url = path_1.default.resolve(__dirname, '../data/course.json');
-            var result = fs_1.default.readFileSync(url, 'utf-8');
-            res.json(JSON.parse(result));
-        }
-        catch (e) {
-            res.send("尚未爬取到内容");
-        }
+router.get('/showData', checkLogin, function (req, res) {
+    try {
+        var url = path_1.default.resolve(__dirname, '../data/course.json');
+        var result = fs_1.default.readFileSync(url, 'utf-8');
+        res.json(JSON.parse(result));
     }
-    else {
-        res.send('请先登录');
+    catch (e) {
+        res.send("尚未爬取到内容");
     }
 });
 exports.default = router;

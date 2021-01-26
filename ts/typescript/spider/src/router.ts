@@ -1,6 +1,6 @@
-import { Router, Request, Response } from 'express';
-import Crowller from './crowller';
-import DellAnalyzer from './dellAnalyzer';
+import { Router, Request, Response, NextFunction } from 'express';
+import Crowller from './utils/crowller';
+import DellAnalyzer from './utils/dellAnalyzer';
 import fs from 'fs'
 import path from 'path'
 
@@ -10,12 +10,22 @@ interface RequestWithBody extends Request {
   }
 }
 
+const checkLogin = (req: RequestWithBody, res: Response, next: NextFunction) => {
+  const isLogin = req.session ? req.session.login : false
+  if (isLogin) {
+    next()
+  } else {
+    res.send('请先登录')
+  }
+
+}
+
 const router = Router();
 
-router.get('/', (req: Request, res: Response) => {
+router.get('/', (req: RequestWithBody, res: Response) => {
   const isLogin = req.session ? req.session.login : false
 
-  if(isLogin) {
+  if (isLogin) {
     res.send(`
         <html>
         <body>
@@ -25,7 +35,7 @@ router.get('/', (req: Request, res: Response) => {
         </body>
       </html>
     `)
-  }else{
+  } else {
     res.send(`
       <html>
         <body>
@@ -54,42 +64,31 @@ router.post('/login', (req: RequestWithBody, res: Response) => {
   }
 });
 
-router.get('/logout', (req: Request, res: Response) => {
-  if(req.session) {
+router.get('/logout', (req: RequestWithBody, res: Response) => {
+  if (req.session) {
     req.session.login = undefined
   }
 
   res.redirect('/')
 });
 
-router.get('/getData', (req: RequestWithBody, res: Response) => {
-  const isLogin = req.session ? req.session.login : false
-
-  if (isLogin) {
-    const secret = 'secretKey';
-    const url = `http://www.dell-lee.com/typescript/demo.html?secret=${secret}`;
-    const analyzer = DellAnalyzer.getInstance();
-    new Crowller(url, analyzer);
-    res.send('getData Success!');
-  } else {
-    res.send('请先登录')
-  }
+router.get('/getData', checkLogin, (req: RequestWithBody, res: Response) => {
+  const secret = 'secretKey';
+  const url = `http://www.dell-lee.com/typescript/demo.html?secret=${secret}`;
+  const analyzer = DellAnalyzer.getInstance();
+  new Crowller(url, analyzer);
+  res.send('getData Success!');
 });
 
-router.get('/showData', (req: RequestWithBody, res: Response) => {
-  const isLogin = req.session ? req.session.login : false
-
-  if (isLogin) {
-    try {
-      const url = path.resolve(__dirname, '../data/course.json')
-      const result = fs.readFileSync(url, 'utf-8')
-      res.json(JSON.parse(result))
-    }catch(e) {
-      res.send("尚未爬取到内容")
-    }
-  } else {
-    res.send('请先登录')
+router.get('/showData', checkLogin, (req: RequestWithBody, res: Response) => {
+  try {
+    const url = path.resolve(__dirname, '../data/course.json')
+    const result = fs.readFileSync(url, 'utf-8')
+    res.json(JSON.parse(result))
+  } catch (e) {
+    res.send("尚未爬取到内容")
   }
+
 });
 
 export default router;
