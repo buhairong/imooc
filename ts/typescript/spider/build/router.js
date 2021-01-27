@@ -8,13 +8,14 @@ var crowller_1 = __importDefault(require("./utils/crowller"));
 var dellAnalyzer_1 = __importDefault(require("./utils/dellAnalyzer"));
 var fs_1 = __importDefault(require("fs"));
 var path_1 = __importDefault(require("path"));
+var util_1 = require("./utils/util");
 var checkLogin = function (req, res, next) {
     var isLogin = req.session ? req.session.login : false;
     if (isLogin) {
         next();
     }
     else {
-        res.send('请先登录');
+        res.json(util_1.getResponseData(null, '请先登录'));
     }
 };
 var router = express_1.Router();
@@ -31,15 +32,15 @@ router.post('/login', function (req, res) {
     var password = req.body.password;
     var isLogin = req.session ? req.session.login : false;
     if (isLogin) {
-        res.send('已经登陆过');
+        res.json(util_1.getResponseData(false, '已经登陆过'));
     }
     else {
         if (password === '123' && req.session) {
             req.session.login = true;
-            res.send('登陆成功');
+            res.json(util_1.getResponseData(true));
         }
         else {
-            res.send('登陆失败');
+            res.json(util_1.getResponseData(false, '登录失败'));
         }
     }
 });
@@ -47,7 +48,7 @@ router.get('/logout', function (req, res) {
     if (req.session) {
         req.session.login = undefined;
     }
-    res.redirect('/');
+    res.json(util_1.getResponseData(true));
 });
 router.get('/getData', checkLogin, function (req, res) {
     var secret = 'secretKey';

@@ -3,6 +3,7 @@ import Crowller from './utils/crowller';
 import DellAnalyzer from './utils/dellAnalyzer';
 import fs from 'fs'
 import path from 'path'
+import {getResponseData} from "./utils/util"
 
 interface RequestWithBody extends Request {
   body: {
@@ -15,7 +16,7 @@ const checkLogin = (req: RequestWithBody, res: Response, next: NextFunction) => 
   if (isLogin) {
     next()
   } else {
-    res.send('请先登录')
+    res.json(getResponseData(null, '请先登录'))
   }
 
 }
@@ -53,13 +54,13 @@ router.post('/login', (req: RequestWithBody, res: Response) => {
   const { password } = req.body;
   const isLogin = req.session ? req.session.login : false;
   if (isLogin) {
-    res.send('已经登陆过');
+    res.json(getResponseData(false, '已经登陆过'))
   } else {
     if (password === '123' && req.session) {
       req.session.login = true;
-      res.send('登陆成功');
+      res.json(getResponseData(true))
     } else {
-      res.send('登陆失败');
+      res.json(getResponseData(false, '登录失败'))
     }
   }
 });
@@ -69,7 +70,7 @@ router.get('/logout', (req: RequestWithBody, res: Response) => {
     req.session.login = undefined
   }
 
-  res.redirect('/')
+  res.json(getResponseData(true))
 });
 
 router.get('/getData', checkLogin, (req: RequestWithBody, res: Response) => {
